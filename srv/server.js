@@ -1,6 +1,50 @@
 const cds = require("@sap/cds");
-const implementation = require("./serverImplementation.js");
+const msal = require("@azure/msal-node");
+// const { authConfig } = require("../authConfig");
 
-cds.on("bootstrap", async (app) => await implementation(app));
+var {
+  msalConfig,
+  REDIRECT_URI,
+  POST_LOGOUT_REDIRECT_URI,
+} = require("../authConfig");
+
+// Create msal application object
+const cca = new msal.ConfidentialClientApplication(msalConfig);
+
+cds.on("bootstrap", async (app) => {
+  app.get("/", (req, res) => {
+    const authCodeUrlParameters = {
+      scopes: ["user.read"],
+      redirectUri: REDIRECT_URI,
+    };
+
+    // get url to sign user in and consent to scopes needed for application
+    cca
+      .getAuthCodeUrl(authCodeUrlParameters)
+      .then((response) => {
+        res.redirect(response);
+      })
+      .catch((error) => console.log(JSON.stringify(error)));
+  });
+
+  app.get("/redirect", (req, res) => {
+    const tokenRequest = {
+      code: req.query.code,
+      scopes: ["user.read"],
+      redirectUri: REDIRECT_URI,
+    };
+
+    cca
+      .acquireTokenByCode(tokenRequest)
+      .then((response) => {
+        console.log("\nResponse: \n:", response);
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).send(error);
+      });
+  });
+});
 
 module.exports = cds.server;
