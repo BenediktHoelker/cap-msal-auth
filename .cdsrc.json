@@ -1,0 +1,10 @@
+{
+    "requires": {
+        "uaa": {
+            "kind": "xsuaa"
+        },
+        "auth": {
+            "impl": "custom-auth"
+        }
+    }
+}
