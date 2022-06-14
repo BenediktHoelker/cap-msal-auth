@@ -4,7 +4,7 @@
             "kind": "xsuaa"
         },
         "auth": {
-            "impl": "./auth/handler"
+            "impl": "./srv/handler"
         }
     }
 }

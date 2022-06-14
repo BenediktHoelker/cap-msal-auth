@@ -6,7 +6,7 @@
 var express = require("express");
 var router = express.Router();
 
-router.get("/", function (req, res, next) {
+router.get("/", function (req, res) {
   res.json({
     title: "MSAL Node & Express Web App",
     isAuthenticated: req.session.isAuthenticated,
