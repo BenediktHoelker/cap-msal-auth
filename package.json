@@ -15,7 +15,12 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.6.0",
-    "passport-azure-ad": "^4.3.3"
+    "passport-azure-ad": "^4.3.3",
+    "axios": "^0.27.2",
+    "cookie-parser": "^1.4.6",
+    "hbs": "^4.2.0",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "sqlite3": "^5.0.8"
@@ -46,6 +51,16 @@
     "rules": {
       "no-console": "off",
       "require-atomic-updates": "off"
+    }
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "sqlite.db"
+        }
+      }
     }
   }
 }
