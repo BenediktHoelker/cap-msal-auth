@@ -8,8 +8,14 @@
   "dependencies": {
     "@azure/msal-node": "^1.9.1",
     "@sap/cds": "^5",
+    "cds-azure-ad": "^0.0.21",
     "dotenv": "^16.0.1",
-    "express": "^4"
+    "express": "^4",
+    "express-openid-connect": "^2.7.2",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.6.0",
+    "passport-azure-ad": "^4.3.3"
   },
   "devDependencies": {
     "sqlite3": "^5.0.8"

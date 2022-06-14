@@ -1,5 +1,7 @@
 const cds = require("@sap/cds");
 const msal = require("@azure/msal-node");
+const passport = require("passport");
+const session = require("express-session");
 // const { authConfig } = require("../authConfig");
 
 var {
@@ -25,6 +27,10 @@ cds.on("bootstrap", async (app) => {
         res.redirect(response);
       })
       .catch((error) => console.log(JSON.stringify(error)));
+  });
+
+  app.get("/auth/my-user", async (req, res) => {
+    res.json(req?.user?._json);
   });
 
   app.get("/redirect", (req, res) => {
