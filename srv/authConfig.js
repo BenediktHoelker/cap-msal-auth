@@ -29,7 +29,9 @@ const msalConfig = {
 
 const REDIRECT_URI = process.env.REDIRECT_URI;
 const POST_LOGOUT_REDIRECT_URI = process.env.POST_LOGOUT_REDIRECT_URI;
-const GRAPH_ME_ENDPOINT = process.env.GRAPH_API_ENDPOINT + "v1.0/me";
+const GRAPH_ME_ENDPOINT =
+  process.env.GRAPH_API_ENDPOINT +
+  "v1.0/me/events?$select=subject,body,bodyPreview,organizer,attendees,start,end,location";
 
 module.exports = {
   msalConfig,
