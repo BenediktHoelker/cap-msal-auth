@@ -3,17 +3,19 @@
  * Licensed under the MIT License.
  */
 
-var express = require("express");
-var router = express.Router();
+const express = require("express");
 
-var fetch = require("../fetch");
+const router = express.Router();
 
-var { GRAPH_ME_ENDPOINT } = require("../authConfig");
+const fetch = require("../fetch");
+
+const { GRAPH_ME_ENDPOINT } = require("../authConfig");
 
 // custom middleware to check auth state
 function isAuthenticated(req, res, next) {
   if (!req.session.isAuthenticated) {
-    return res.redirect("/auth/signin"); // redirect to sign-in route
+    res.redirect("/auth/signin"); // redirect to sign-in route
+    return;
   }
 
   next();
@@ -22,7 +24,7 @@ function isAuthenticated(req, res, next) {
 router.get(
   "/id",
   isAuthenticated, // check if user is authenticated
-  async function (req, res) {
+  async (req, res) => {
     res.json({ idTokenClaims: req.session.account.idTokenClaims });
   }
 );
@@ -30,7 +32,7 @@ router.get(
 router.get(
   "/profile",
   isAuthenticated, // check if user is authenticated
-  async function (req, res, next) {
+  async (req, res, next) => {
     try {
       const graphResponse = await fetch(
         GRAPH_ME_ENDPOINT,

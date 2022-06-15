@@ -5,16 +5,15 @@
 
 require("dotenv").config();
 
-var express = require("express");
-var session = require("express-session");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 
 // var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var authRouter = require("./routes/auth");
-
 const cds = require("@sap/cds");
+const usersRouter = require("./routes/users");
+const authRouter = require("./routes/auth");
 
 cds.on("bootstrap", async (app) => {
   app.use(logger("dev"));

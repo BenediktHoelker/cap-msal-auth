@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@azure/msal-node": "^1.9.1",
+    "@azure/msal-node": "^1.10.0",
     "@sap/cds": "^5",
     "cds-azure-ad": "^0.0.21",
     "dotenv": "^16.0.1",
@@ -23,10 +23,22 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^8.17.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.7.0",
     "sqlite3": "^5.0.8"
   },
   "scripts": {
-    "start": "cds run"
+    "start": "cds run",
+    "lint": "prettier --check --plugin-search-dir=. . && eslint .",
+    "lint:fix": "prettier --check --plugin-search-dir=. . && eslint . --fix",
+    "format": "prettier --write --plugin-search-dir=. ."
   },
   "eslintConfig": {
     "extends": "eslint:recommended",

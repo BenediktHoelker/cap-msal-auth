@@ -1,10 +1,10 @@
 {
-    "requires": {
-        "uaa": {
-            "kind": "xsuaa"
-        },
-        "auth": {
-            "impl": "./srv/handler"
-        }
+  "requires": {
+    "uaa": {
+      "kind": "xsuaa"
+    },
+    "auth": {
+      "impl": "./srv/handler"
     }
+  }
 }

@@ -3,10 +3,10 @@
  * Licensed under the MIT License.
  */
 
-var express = require("express");
-var msal = require("@azure/msal-node");
+const express = require("express");
+const msal = require("@azure/msal-node");
 
-var {
+const {
   msalConfig,
   REDIRECT_URI,
   POST_LOGOUT_REDIRECT_URI,
@@ -37,8 +37,8 @@ async function redirectToAuthCodeUrl(
   // Set generated PKCE codes and method as session vars
   req.session.pkceCodes = {
     challengeMethod: "S256",
-    verifier: verifier,
-    challenge: challenge,
+    verifier,
+    challenge,
   };
 
   /**
@@ -46,7 +46,7 @@ async function redirectToAuthCodeUrl(
    * auth artifacts with desired claims. For more information, visit:
    * https://azuread.github.io/microsoft-authentication-library-for-js/ref/modules/_azure_msal_node.html#authorizationurlrequest
    * https://azuread.github.io/microsoft-authentication-library-for-js/ref/modules/_azure_msal_node.html#authorizationcoderequest
-   **/
+   * */
 
   req.session.authCodeUrlRequest = {
     redirectUri: REDIRECT_URI,
@@ -73,7 +73,7 @@ async function redirectToAuthCodeUrl(
   }
 }
 
-router.get("/signin", async function (req, res, next) {
+router.get("/signin", async (req, res, next) => {
   // create a GUID for crsf
   req.session.csrfToken = cryptoProvider.createNewGuid();
 
@@ -90,7 +90,7 @@ router.get("/signin", async function (req, res, next) {
   );
 
   const authCodeUrlRequestParams = {
-    state: state,
+    state,
 
     /**
      * By default, MSAL Node will add OIDC scopes to the auth code url request. For more information, visit:
@@ -117,7 +117,7 @@ router.get("/signin", async function (req, res, next) {
   );
 });
 
-router.get("/acquireToken", async function (req, res, next) {
+router.get("/acquireToken", async (req, res, next) => {
   // create a GUID for csrf
   req.session.csrfToken = cryptoProvider.createNewGuid();
 
@@ -130,7 +130,7 @@ router.get("/acquireToken", async function (req, res, next) {
   );
 
   const authCodeUrlRequestParams = {
-    state: state,
+    state,
     scopes: ["User.Read", "Calendars.Read"],
   };
 
@@ -148,7 +148,7 @@ router.get("/acquireToken", async function (req, res, next) {
   );
 });
 
-router.post("/redirect", async function (req, res, next) {
+router.post("/redirect", async (req, res, next) => {
   if (req.body.state) {
     const state = JSON.parse(cryptoProvider.base64Decode(req.body.state));
 
@@ -178,7 +178,7 @@ router.post("/redirect", async function (req, res, next) {
   }
 });
 
-router.get("/signout", function (req, res) {
+router.get("/signout", (req, res) => {
   /**
    * Construct a logout URI and redirect the user to end the
    * session with Azure AD. For more information, visit:

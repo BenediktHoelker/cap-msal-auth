@@ -3,11 +3,11 @@ const cds = require("@sap/cds");
 // To debug this module set export DEBUG=cap-msal-auth
 const DEBUG = cds.debug("cap-msal-auth");
 
-DEBUG && DEBUG("[auth] - loading custom auth handler");
+DEBUG("[auth] - loading custom auth handler");
 
 const CDSUser = class extends cds.User {
   is(role) {
-    DEBUG && DEBUG("[auth] - " + role);
+    DEBUG(`[auth] - ${role}`);
     return role === "any" || this._roles[role];
   }
 };
@@ -20,7 +20,7 @@ const CDSUser = class extends cds.User {
  */
 module.exports = (req, res, next) => {
   const user = req.session.account?.username;
-  DEBUG && DEBUG("[auth] - user defined?" + !!user);
+  DEBUG(`[auth] - user defined?${!!user}`);
   if (user) {
     req.user = new CDSUser(user);
     next();

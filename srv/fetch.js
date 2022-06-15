@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-var axios = require("axios").default;
+const axios = require("axios").default;
 
 /**
  * Attaches a given access token to a MS Graph API call
@@ -17,7 +17,8 @@ async function fetch(endpoint, accessToken) {
     },
   };
 
-  console.log(`request made to ${endpoint} at: ` + new Date().toString());
+  // eslint-disable-next-line no-console
+  console.log(`request made to ${endpoint} at: ${new Date().toString()}`);
 
   try {
     const response = await axios.get(endpoint, options);
